@@ -6,8 +6,6 @@ setup(
     author="Udit Raj Singh",
     author_email="uditrajsingh815@example.com",
     description="A merged package combining gitleaks and zap",
-    long_description=open("README.md").read(),
-    long_description_content_type="text/markdown",
     packages=find_packages(),  # Automatically find all packages
     classifiers=[
         "Programming Language :: Python :: 3",
