@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="security_package",  # The name of your new merged package
-    version="0.1",           # Version number
+    version="1.1",           # Version number
     author="Udit Raj Singh",
     author_email="uditrajsingh815@example.com",
     description="A merged package combining gitleaks and zap",
@@ -14,9 +14,10 @@ setup(
     ],
     entry_points = {
         'console_scripts': [
-            'install-gitleaks=gitleaks.gitleaks_installer.installer:install_gitleaks',
-            'add-gitleaks-path=gitleaks.gitleaks_installer.installer:add_gitleaks_to_path',
-            'install-zap=zap.zap_installer.zap:main',
+            'install-gitleaks=gitleak.installer:install_gitleaks',
+            'add-gitleaks-path=gitleak.installer:add_gitleaks_to_path',
+            'install-zap=zap.zap:main',
+            'install-trufflehog=trufflehog_installer.trufflehog:main',
         ],
     },
     
