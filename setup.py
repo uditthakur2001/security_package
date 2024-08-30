@@ -16,9 +16,9 @@ setup(
     ],
     entry_points = {
         'console_scripts': [
-            'install-gitleaks=gitleaks_installer.installer:install_gitleaks',
-            'add-gitleaks-path=gitleaks_installer.installer:add_gitleaks_to_path',
-            'install-zap=zap_installer.zap:main',
+            'install-gitleaks=gitleaks.gitleaks_installer.installer:install_gitleaks',
+            'add-gitleaks-path=gitleaks.gitleaks_installer.installer:add_gitleaks_to_path',
+            'install-zap=zap.zap_installer.zap:main',
         ],
     },
     
