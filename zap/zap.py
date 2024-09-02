@@ -29,8 +29,11 @@ def download_zap():
     return zap_file
 
 def extract_zap(zap_file):
-    zap_dir = 'OWASP_ZAP'
-    print(f'Extracting {zap_file}...')
+    user_home = str(Path.home())
+    zap_dir = os.path.join(user_home, 'OWASP_ZAP')  # Install in user home directory
+    print(f'Extracting {zap_file} to {zap_dir}...')
+
+    os.makedirs(zap_dir, exist_ok=True)
 
     if zap_file.endswith('.zip'):
         with zipfile.ZipFile(zap_file, 'r') as zip_ref:
@@ -39,7 +42,7 @@ def extract_zap(zap_file):
         with tarfile.open(zap_file, 'r:gz') as tar_ref:
             tar_ref.extractall(zap_dir)
 
-    print(f'OWASP ZAP extracted to {zap_dir}')
+    print(f'OWASP ZAP installed successfully in {zap_dir}')
     return zap_dir
 
 def install_zap(zap_file, zap_dir):
@@ -47,18 +50,18 @@ def install_zap(zap_file, zap_dir):
 
     if system == 'windows':
         print(f'Running ZAP installer {zap_file}...')
-        subprocess.run([zap_file], check=True)
+        # Run installer in user mode
+        subprocess.run([zap_file, '/S'], check=True)  # /S flag for silent installation
 
     elif system == 'darwin':  # macOS
-        print(f'Running ZAP installer for macOS...')
-        subprocess.run(['hdiutil', 'attach', zap_file], check=True)
-        subprocess.run(['sudo', 'cp', '-R', f'/Volumes/ZAP/ZAP.app', '/Applications'], check=True)
-        subprocess.run(['hdiutil', 'detach', '/Volumes/ZAP'], check=True)
+        print(f'Installing ZAP for macOS in user directory...')
+        # Copy the app to user Applications directory
+        subprocess.run(['cp', '-R', f'/Volumes/ZAP/ZAP.app', os.path.join(zap_dir, 'ZAP.app')], check=True)
 
     else:  # Linux
-        print(f'Running ZAP installer for Linux...')
+        print(f'Running ZAP installer for Linux in user directory...')
         subprocess.run(['chmod', '+x', zap_file], check=True)
-        subprocess.run(['sh', zap_file], check=True)
+        subprocess.run(['sh', zap_file, '--user'], check=True)
 
     print('OWASP ZAP installation complete.')
 

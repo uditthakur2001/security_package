@@ -1,3 +1,0 @@
-gitleak
-trufflehog
-zap
